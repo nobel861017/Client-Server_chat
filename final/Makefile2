@@ -1,0 +1,21 @@
+CXX       = gcc
+CXXFLAGS   = -Wall
+LDFLAGS  = 
+OBJFILES = connect.o
+TARGET   = server client
+
+#connect.o: connect.c
+	
+
+server_client: client.c server.c
+	gcc -c connect.c -o connect.o
+	gcc -c common.c -o common.o
+	gcc client.c -o client connect.o common.o -pthread -lm -lbsd
+	gcc server.c -o server connect.o common.o -lm -lbsd
+
+.PHONY: clean
+
+clean:
+	rm -rf $(OBJFILES)
+	rm -rf $(TARGET) *~
+	rm -rf a.out
